@@ -11,6 +11,7 @@
                 <th>№</th>
                 <th>Название</th>
                 <th>Длительность</th>
+                <th>Исполнитель</th>
                 <th>Жанры</th>
                 <th></th>
                 <th></th>
@@ -22,6 +23,13 @@
                 <td>{{ forloop.counter }}</td>
                 <td>{{ track.title }}</td>
                 <td>{{ track.duration }}</td>
+                <td>
+                    {% if track.artist %}
+                        {{ track.artist.name }}
+                    {% else %}
+                        Не указан
+                    {% endif %}
+                </td>
                 <td>
                     {% for genre in track.genres.all %}
                         {{ genre.name_ru }}{% if not forloop.last %}, {% endif %}
