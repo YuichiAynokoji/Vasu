@@ -5,34 +5,23 @@
 {% block content %}
     <h1>Треки</h1>
 
-    <p>
-        <a href="{% url 'create_track' %}">Добавить трек</a>
-    </p>
-
     <table>
         <thead>
             <tr>
-                <th>id</th>
-                <th>title</th>
-                <th>duration</th>
-                <th>artist</th>
-                <th>genres</th>
-                <th>audio_file</th>
+                <th>№</th>
+                <th>Название</th>
+                <th>Длительность</th>
+                <th>Жанры</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             {% for track in tracks %}
             <tr>
-                <td>{{ track.id }}</td>
+                <td>{{ forloop.counter }}</td>
                 <td>{{ track.title }}</td>
-                <td>{{ track.duration }} сек</td>
-                <td>
-                    {% if track.artist %}
-                        {{ track.artist.name }}
-                    {% else %}
-                        Не указан
-                    {% endif %}
-                </td>
+                <td>{{ track.duration }}</td>
                 <td>
                     {% for genre in track.genres.all %}
                         {{ genre.name_ru }}{% if not forloop.last %}, {% endif %}
@@ -41,18 +30,15 @@
                     {% endfor %}
                 </td>
                 <td>
-                    {% if track.audio_file %}
-                        <a href="{{ track.audio_file.url }}">Скачать / открыть</a>
-                    {% else %}
-                        Нет файла
-                    {% endif %}
+                    <a class="action-link" href="#">Редактировать</a>
                 </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="6">Треков пока нет</td>
+                <td>
+                    <a class="action-link" href="#">Удалить</a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+
+    <a class="add-link" href="{% url 'create_track' %}">Добавить музыку</a>
 {% endblock %}

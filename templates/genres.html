@@ -1,36 +1,30 @@
 {% extends "base.html" %}
 
-{% block title %}Жанры музыки{% endblock %}
+{% block title %}Жанры{% endblock %}
 
 {% block content %}
-    <h1>Жанры музыки</h1>
-
-    <p>
-        <a href="{% url 'create_genre' %}">Добавить жанр</a>
-    </p>
+    <h1>Жанры</h1>
 
     <table>
         <thead>
             <tr>
-                <th>id</th>
-                <th>name_en</th>
-                <th>name_ru</th>
-                <th>description</th>
+                <th>№</th>
+                <th>Название на английском</th>
+                <th>Название на русском</th>
+                <th>Описание</th>
             </tr>
         </thead>
         <tbody>
             {% for genre in genres %}
             <tr>
-                <td>{{ genre.id }}</td>
+                <td>{{ forloop.counter }}</td>
                 <td>{{ genre.name_en }}</td>
                 <td>{{ genre.name_ru }}</td>
                 <td>{{ genre.description }}</td>
             </tr>
-            {% empty %}
-            <tr>
-                <td colspan="4">Жанров пока нет</td>
-            </tr>
             {% endfor %}
         </tbody>
     </table>
+
+    <a class="add-link" href="{% url 'create_genre' %}">Добавить жанр</a>
 {% endblock %}
