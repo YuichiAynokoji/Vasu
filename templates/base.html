@@ -99,22 +99,11 @@
     </style>
 </head>
 <body>
-    <div class="wrapper">
-        <nav class="top-menu">
-            <ul>
-                <li><a href="{{ url_for('index') }}">Главная</a></li>
-                <li><a href="{{ url_for('genres') }}">Жанры музыки</a></li>
-            </ul>
-        </nav>
-
-        <main>
-            {% block content %}
-            {% endblock content %}
-        </main>
-
-        <footer>
-            footer
-        </footer>
+    <div class="menu">
+        <a href="{% url 'index' %}">Главная</a>
+        <a href="{% url 'genres' %}">Жанры музыки</a>
+        <a href="{% url 'artists' %}">Исполнители</a>
+        <a href="{% url 'tracks' %}">Треки</a>
     </div>
 </body>
 </html>

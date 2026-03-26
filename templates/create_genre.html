@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Добавить жанр{% endblock %}
+
+{% block content %}
+    <h1>Добавить жанр</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Сохранить</button>
+    </form>
+
+    <p>
+        <a href="{% url 'genres' %}">Назад к жанрам</a>
+    </p>
+{% endblock %}

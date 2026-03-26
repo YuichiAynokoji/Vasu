@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 
-{% block title %}Главная{% endblock title %}
+{% block title %}Главная{% endblock %}
 
 {% block content %}
     <h1>Убийца Spotify</h1>
-{% endblock content %}
+
+    <p>Добро пожаловать в музыкальное приложение.</p>
+
+    <ul>
+        <li><a href="{% url 'genres' %}">Список жанров</a></li>
+        <li><a href="{% url 'artists' %}">Список исполнителей</a></li>
+        <li><a href="{% url 'tracks' %}">Список треков</a></li>
+    </ul>
+{% endblock %}

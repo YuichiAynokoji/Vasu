@@ -1,20 +1,36 @@
-<tbody>
-    <tr>
-        <td>1</td>
-        <td>Pop</td>
-        <td>Поп</td>
-        <td>Мелодичная музыка с простой структурой, ориентированная на массового слушателя.</td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td>Rock</td>
-        <td>Рок</td>
-        <td>Музыка с акцентом на электрогитару, ударные и энергичный ритм.</td>
-    </tr>
-    <tr>
-        <td>3</td>
-        <td>Hip-Hop</td>
-        <td>Хип-хоп</td>
-        <td>Стиль, основанный на ритмичном речитативе под биты и сэмплы.</td>
-    </tr>
-</tbody>
+{% extends "base.html" %}
+
+{% block title %}Жанры музыки{% endblock %}
+
+{% block content %}
+    <h1>Жанры музыки</h1>
+
+    <p>
+        <a href="{% url 'create_genre' %}">Добавить жанр</a>
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>name_en</th>
+                <th>name_ru</th>
+                <th>description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for genre in genres %}
+            <tr>
+                <td>{{ genre.id }}</td>
+                <td>{{ genre.name_en }}</td>
+                <td>{{ genre.name_ru }}</td>
+                <td>{{ genre.description }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">Жанров пока нет</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Исполнители{% endblock %}
+
+{% block content %}
+    <h1>Исполнители</h1>
+
+    <p>
+        <a href="{% url 'create_artist' %}">Добавить исполнителя</a>
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>image</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for artist in artists %}
+            <tr>
+                <td>{{ artist.id }}</td>
+                <td>{{ artist.name }}</td>
+                <td>
+                    {% if artist.image %}
+                        <img src="{{ artist.image.url }}" alt="{{ artist.name }}" width="120">
+                    {% else %}
+                        Нет изображения
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">Исполнителей пока нет</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
