@@ -14,8 +14,21 @@ def artists(request):
     return render(request, 'artists.html', {'artists': artists_list})
 
 def tracks(request):
+    artists_list = Artist.objects.all()
     tracks_list = Track.objects.all()
-    return render(request, 'tracks.html', {'tracks': tracks_list})
+    current_artist = None
+
+    if request.method == 'POST':
+        artist_id = request.POST.get('artist')
+        if artist_id:
+            current_artist = Artist.objects.get(id=artist_id)
+            tracks_list = Track.objects.filter(artist=current_artist)
+
+    return render(request, 'tracks.html', {
+        'tracks': tracks_list,
+        'artists': artists_list,
+        'current_artist': current_artist,
+    })
 
 def create_genre(request):
     if request.method == 'POST':

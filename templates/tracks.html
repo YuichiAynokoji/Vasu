@@ -5,14 +5,25 @@
 {% block content %}
     <h1>Треки</h1>
 
+    <form method="post" style="margin-bottom: 20px;">
+        {% csrf_token %}
+        <select name="artist" onchange="this.form.submit()">
+            <option value="">Все исполнители</option>
+            {% for artist in artists %}
+                <option value="{{ artist.id }}"
+                    {% if current_artist and current_artist.id == artist.id %}selected{% endif %}>
+                    {{ artist.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </form>
+
     <table>
         <thead>
             <tr>
                 <th>№</th>
-                <th>Название</th>
+                <th>Музыка</th>
                 <th>Длительность</th>
-                <th>Исполнитель</th>
-                <th>Жанры</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -21,28 +32,37 @@
             {% for track in tracks %}
             <tr>
                 <td>{{ forloop.counter }}</td>
-                <td>{{ track.title }}</td>
-                <td>{{ track.duration }}</td>
+
                 <td>
+                    {% if track.audio_file %}
+                        <audio controls>
+                            <source src="{{ track.audio_file.url }}">
+                            Ваш браузер не поддерживает audio.
+                        </audio>
+                        <br>
+                    {% endif %}
+
+                    {{ track.title }}
+
                     {% if track.artist %}
-                        {{ track.artist.name }}
-                    {% else %}
-                        Не указан
+                        <br>
+                        <small>{{ track.artist.name }}</small>
                     {% endif %}
                 </td>
-                <td>
-                    {% for genre in track.genres.all %}
-                        {{ genre.name_ru }}{% if not forloop.last %}, {% endif %}
-                    {% empty %}
-                        Нет жанров
-                    {% endfor %}
-                </td>
+
+                <td>{{ track.duration }}</td>
+
                 <td>
                     <a class="action-link" href="#">Редактировать</a>
                 </td>
+
                 <td>
                     <a class="action-link" href="#">Удалить</a>
                 </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">Треков нет</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -50,3 +70,5 @@
 
     <a class="add-link" href="{% url 'create_track' %}">Добавить музыку</a>
 {% endblock %}
+
+
